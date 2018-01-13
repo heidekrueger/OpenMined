@@ -346,6 +346,12 @@ namespace OpenMined.Syft.Tensor
                     }
                 }
 
+                case "zero_":
+                {
+                    Zero_();
+                    return msgObj.functionCall + ": OK";
+                }
+
             }
             return "IntTensor.processMessage: Command not found:" + msgObj.functionCall;
         }
