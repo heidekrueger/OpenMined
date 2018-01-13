@@ -31,7 +31,7 @@ namespace OpenMined.Tests.Editor.IntTensorTests
             
             for (var i = 0; i < data1.Length; ++i)
             {
-                //Debug.LogFormat("Asserting {0} equals {1} with accuracy {2} where diff is {3}", data1[i], data2[i], delta, data1[i] - data2[i]);
+                Debug.LogFormat("Asserting {0} equals {1} with accuracy {2} where diff is {3}", data1[i], data2[i], delta, data1[i] - data2[i]);
                 Assert.AreEqual(data1[i], data2[i], delta);
             }
         }
@@ -117,6 +117,24 @@ namespace OpenMined.Tests.Editor.IntTensorTests
             AssertEqualTensorsData(expectedTensor, tensor1);
         }
 
-/* closes class and namespace */
+        [Test]
+        public void Zero_()
+        {
+            int[] data1 = { -1, 0, 1, int.MaxValue, int.MinValue };
+            int[] shape1 = { 5 };
+            var tensor1 = ctrl.intTensorFactory.Create(_data: data1, _shape: shape1);
+            tensor1.Gpu(shader);
+
+            int[] data2 = { 0, 0, 0, 0, 0 };
+            int[] shape2 = { 5 };
+            var expectedTensor = ctrl.intTensorFactory.Create(_data: data2, _shape: shape2);
+            expectedTensor.Gpu(shader);
+
+            tensor1.Zero_();
+
+            AssertEqualTensorsData(expectedTensor, tensor1);
+        }
+
+        /* closes class and namespace */
     }
 }

@@ -118,6 +118,25 @@ namespace OpenMined.Tests.Editor.IntTensorTests
             Assert.That(() => non2DTensor.Trace(),
                 Throws.TypeOf<InvalidOperationException>());
         }
+        
+        [Test]
+        public void Zero_()
+        {
+            int[] data1 = { -1, 0, 1, int.MaxValue, int.MinValue };
+            int[] shape1 = { 5 };
+            var tensor1 = ctrl.intTensorFactory.Create(_data: data1, _shape: shape1);
+
+            int[] data2 = { 0, 0, 0, 0, 0 };
+            int[] shape2 = { 5 };
+            var expectedTensor = ctrl.intTensorFactory.Create(_data: data2, _shape: shape2);
+
+            tensor1.Zero_();
+
+            for (int i = 0; i < tensor1.Size; i++)
+            {
+                Assert.AreEqual(expectedTensor[i], tensor1[i]);
+            }
+        }
 
         /* closes class and namespace */
     }
