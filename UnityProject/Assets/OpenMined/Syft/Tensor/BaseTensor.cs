@@ -174,7 +174,7 @@ namespace OpenMined.Syft.Tensor
             Array.Clear(data, 0, size);
         }
 
-        public void ZeroGPU_()
+        public virtual void ZeroGPU_()
         {
             shader.SetBuffer(ZeroKernel_, "ZeroData_", dataBuffer);
             shader.Dispatch(ZeroKernel_, this.size, 1, 1);

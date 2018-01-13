@@ -19,8 +19,9 @@ namespace OpenMined.Syft.Tensor
         private IntTensorFactory factory;
         
         // kernel pointers
-        [SerializeField] 
-        private static int AddElemIntKernel;
+        [SerializeField] private static int AddElemIntKernel;
+        [SerializeField] private static int ZeroIntKernel_;
+
 
 
         public IntTensor()
@@ -143,6 +144,7 @@ namespace OpenMined.Syft.Tensor
         public void initShaderKernels()
         {
             //AddElemIntKernel = this.shader.FindKernel("AddElemInt");
+            //ZeroIntKernel_ = this.shader.FindKernel("ZeroInt_");
         }
 
         public IntTensor Copy()
@@ -266,6 +268,12 @@ namespace OpenMined.Syft.Tensor
             
         }
         
+        public override void ZeroGPU_()
+        {
+            shader.SetBuffer(ZeroIntKernel_, "ZeroIntData_", dataBuffer);
+            shader.Dispatch(ZeroIntKernel_, this.size, 1, 1);
+        }
+
         public override string ProcessMessage(Command msgObj, SyftController ctrl)
         {
             switch (msgObj.functionCall)
@@ -381,9 +389,11 @@ namespace OpenMined.Syft.Tensor
 
                 case "zero_":
                 {
-                    Zero_();
+                    Debug.LogFormat("zero_");
+                    this.Zero_();
                     return msgObj.functionCall + ": OK";
                 }
+
                 case "trace":
                 {
                     var result = this.Trace();

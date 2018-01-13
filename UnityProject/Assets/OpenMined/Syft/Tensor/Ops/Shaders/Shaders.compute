@@ -818,3 +818,12 @@ RWStructuredBuffer<float> ZeroData_;
 void Zero_ (uint3 id: SV_DispatchThreadID) {
        ZeroData_[id.x] = 0;
 }
+
+#pragma kernel ZeroInt_
+
+RWStructuredBuffer<int> ZeroIntData_;
+
+[numthreads(4,1,1)]
+void ZeroInt_ (uint3 id: SV_DispatchThreadID) {
+	ZeroIntData_[id.x] = 0;
+}
