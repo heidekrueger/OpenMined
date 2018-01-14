@@ -31,7 +31,7 @@ namespace OpenMined.Tests.Editor.IntTensorTests
             
             for (var i = 0; i < data1.Length; ++i)
             {
-                Debug.LogFormat("Asserting {0} equals {1} with accuracy {2} where diff is {3}", data1[i], data2[i], delta, data1[i] - data2[i]);
+				//Debug.LogFormat("Asserting {0} equals {1} with accuracy {2} where diff is {3} on index {4}", data1[i], data2[i], delta, data1[i] - data2[i], i);
                 Assert.AreEqual(data1[i], data2[i], delta);
             }
         }
